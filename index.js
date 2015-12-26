@@ -12,32 +12,32 @@ var http = require('http'),
 var AlexaSkill = require('./AlexaSkill');
 
 /**
- * TidePooler is a child of AlexaSkill.
+ * LaLigaScores is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
  *
  */
-var TidePooler = function () {
+var LaLigaScores = function () {
     AlexaSkill.call(this, APP_ID);
 };
 
 // Extend AlexaSkill
-TidePooler.prototype = Object.create(AlexaSkill.prototype);
-TidePooler.prototype.constructor = TidePooler;
+LaLigaScores.prototype = Object.create(AlexaSkill.prototype);
+LaLigaScores.prototype.constructor = LaLigaScores;
 
 // ----------------------- Override AlexaSkill request and intent handlers -----------------------
 
-TidePooler.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
+LaLigaScores.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
     console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId
         + ", sessionId: " + session.sessionId);
     // any initialization logic goes here
 };
 
-TidePooler.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
+LaLigaScores.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
     handleWelcomeRequest(response);
 };
 
-TidePooler.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
+LaLigaScores.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
     console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId
         + ", sessionId: " + session.sessionId);
     // any cleanup logic goes here
@@ -46,7 +46,7 @@ TidePooler.prototype.eventHandlers.onSessionEnded = function (sessionEndedReques
 /**
  * override intentHandlers to map intent handling functions.
  */
-TidePooler.prototype.intentHandlers = {
+LaLigaScores.prototype.intentHandlers = {
     "OneShotLaLigaIntent": function (intent, session, response) {
       handleOneshotLaLigaRequest(intent, session, response);
     },
@@ -74,7 +74,7 @@ TidePooler.prototype.intentHandlers = {
     }
 };
 
-// -------------------------- TidePooler Domain Specific Business Logic --------------------------
+// -------------------------- LaLigaScores Domain Specific Business Logic --------------------------
 
 // example team to NOAA station mapping. Can be found on: http://tidesandcurrents.noaa.gov/map/
 var TEAMS = {
@@ -121,8 +121,9 @@ function handleSupportedTeamsRequest(intent, session, response) {
 
 function handleLeagueTablesRequest(intent, session, response) {
   // make the request to get the league table
-  makeLeagueTableRequest(function (err, leagueTableData) {
-    console.log(leagueTableData);
+  makeLeagueTableRequest(function (err, leagueTableOrder) {
+    var speechOutput = "The top five teams in the league in the right order are: " + leagueTableOrder;
+    response.tellWithCard(speechOutput, "LaLigaScores", speechOutput)
   });
 }
 
@@ -211,13 +212,29 @@ function makeLeagueTableRequest(leagueTableCallback) {
                 console.log("Football data error: " + footballDataResponseObject.error);
                 leagueTableCallback(new Error(footballDataResponseObject.error));
             } else {
-                leagueTableCallback(null, footballDataResponseObject);
+
+                leagueTableCallback(null, parseLeagueTableResults(footballDataResponseObject));
             }
         });
     }).on('error', function (e) {
         console.log("Communications error: " + e.message);
         leagueTableCallback(new Error(e.message));
     });
+}
+
+function parseLeagueTableResults(results) {
+  var output = "";
+  for (var i = 0; i < results.standing.length; i++) {
+    if (i === 5) {
+      break;
+    }
+    if (i === 4) {
+      output += results.standing[i].teamName;
+    } else {
+      output += results.standing[i].teamName + ", ";
+    }
+  }
+  return output;
 }
 
 function getAllTeamsText() {
@@ -231,6 +248,6 @@ function getAllTeamsText() {
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
-    var tidePooler = new TidePooler();
-    tidePooler.execute(event, context);
+    var laLigaScores = new LaLigaScores();
+    laLigaScores.execute(event, context);
 };
