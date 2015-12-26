@@ -1,0 +1,14 @@
+{
+  "name": "alexa-la-liga-scores",
+  "version": "0.0.1",
+  "description": "Fetching La Liga scores using Amazon Alexa",
+  "main": "index.js",
+  "dependencies": {
+    "node-lambda": "0.1.5"
+  },
+  "scripts": {
+    "setup": "node-lambda setup",
+    "run": "node-lambda run",
+    "deploy": "node-lambda deploy"
+  }
+}
