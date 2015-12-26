@@ -1,5 +1,32 @@
 {
-  "key": "value",
-  "key2": "value2",
-  "other_key": "other_value"
+  "session": {
+    "sessionId": "SessionId.04a2bc59-7d88-494e-8eb0-adeba32e47be",
+    "application": {
+      "applicationId": "amzn1.echo-sdk-ams.app.45bdd5aa-4675-4fd7-95ec-1560a666c1e1"
+    },
+    "user": {
+      "userId": "amzn1.echo-sdk-account.AHT4NIYMXH7KLE4MTWZ6NWAALIMKSEX5HV3D6WMFMG5XYSNKLKZDY"
+    },
+    "new": true
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.96d8dcf5-9b97-469a-8af6-499d553c21cb",
+    "timestamp": 1451100423299,
+    "intent": {
+      "name": "OneshotTideIntent",
+      "slots": {
+        "State": {
+          "name": "State"
+        },
+        "City": {
+          "name": "City",
+          "value": "Los Angeles"
+        },
+        "Date": {
+          "name": "Date"
+        }
+      }
+    }
+  }
 }
