@@ -14,7 +14,7 @@
     "requestId": "EdwRequestId.db8d5a38-7df0-46d7-9564-b331ad3cca8e",
     "timestamp": 1451104605204,
     "intent": {
-      "name": "OneShotLaLigaIntent",
+      "name": "SupportedTeamsIntent",
       "slots": {}
     }
   }
