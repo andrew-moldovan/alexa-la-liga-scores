@@ -1,18 +1,18 @@
 {
   "session": {
-    "sessionId": "SessionId.3036cf70-1e3b-4f3c-a1a6-3c49c56adda8",
+    "sessionId": "SessionId.a48304b1-e6b7-4c03-9938-133713ac346f",
     "application": {
-      "applicationId": "amzn1.echo-sdk-ams.app.45bdd5aa-4675-4fd7-95ec-1560a666c1e1"
+      "applicationId": "amzn1.echo-sdk-ams.app.d5436a14-ed4b-49b2-ad4c-f2fc805a1a6e"
     },
     "user": {
-      "userId": "amzn1.echo-sdk-account.AHT4NIYMXH7KLE4MTWZ6NWAALIMKSEX5HV3D6WMFMG5XYSNKLKZDY"
+      "userId": "amzn1.echo-sdk-account.AFOMGNO7YMTDQO7HLZ7ESLYUGWRRJ67SDD6SPBHYHPKECDD4B5YOC"
     },
     "new": true
   },
   "request": {
     "type": "IntentRequest",
-    "requestId": "EdwRequestId.db8d5a38-7df0-46d7-9564-b331ad3cca8e",
-    "timestamp": 1451104605204,
+    "requestId": "EdwRequestId.0aff1d6a-c46a-4f2f-ae29-327d2b76fb9b",
+    "timestamp": 1451107505839,
     "intent": {
       "name": "OneShotLaLigaIntent",
       "slots": {}

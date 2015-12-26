@@ -1,7 +1,7 @@
 /**
  * App ID for the skill
  */
-var APP_ID = 'amzn1.echo-sdk-ams.app.45bdd5aa-4675-4fd7-95ec-1560a666c1e1';//replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
+var APP_ID = 'amzn1.echo-sdk-ams.app.d5436a14-ed4b-49b2-ad4c-f2fc805a1a6e';//replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
 
 var http = require('http'),
     alexaDateUtil = require('./alexaDateUtil');
@@ -238,12 +238,12 @@ function parseLeagueTableResults(results) {
 }
 
 function getAllTeamsText() {
-    var stationList = '';
-    for (var station in TEAMS) {
-        stationList += station + ", ";
-    }
+  var stationList = '';
+  for (var station in TEAMS) {
+      stationList += station + ", ";
+  }
 
-    return stationList;
+  return stationList;
 }
 
 // Create the handler that responds to the Alexa Request.
