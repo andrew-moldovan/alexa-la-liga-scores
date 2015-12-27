@@ -103,34 +103,21 @@ var TEAMS = {
 };
 
 function handleWelcomeRequest(response) {
-  var whichTeamPrompt = "Which team would you like information for?",
-    speechOutput = {
-      speech: "<speak>Welcome to La Liga Scores. " + whichTeamPrompt + "</speak>",
-      type: AlexaSkill.speechOutputType.SSML
-    },
-    repromptOutput = {
-      speech: "I can lead you through finding the latest fixtures for La Liga and for finding the league table. " + whichCityPrompt,
-      type: AlexaSkill.speechOutputType.PLAIN_TEXT
-    };
-
-  response.ask(speechOutput, repromptOutput);
+  var speechOutput = "I can lead you through finding the latest fixtures for any La Liga team and for finding the league table. ";
+  response.tell(speechOutput, "LaLigaScores");
 }
 
 function handleHelpRequest(response) {
-  var repromptText = "What team would you like me to look up?";
-  var speechOutput = "I can tell you the La Liga league standings currently. " + repromptText;
-  response.ask(speechOutput, repromptText);
+  var speechOutput = "I can tell you the La Liga league standings currently. ";
+  response.tell(speechOutput, "LaLigaScores");
 }
 
 /**
  * Handles the case where the user asked or for, or is otherwise being with supported teams
  */
 function handleSupportedTeamsRequest(intent, session, response) {
-  // get team re-prompt
-  var repromptText = "Which team would you like information for?";
-  var speechOutput = "Currently, I know information about all La Liga teams: " + repromptText;
-
-  response.ask(speechOutput, repromptText);
+  var speechOutput = "Currently, I know information about all La Liga teams.";
+  response.tell(speechOutput, "LaLigaScores");
 }
 
 function handleLeagueTablesRequest(intent, session, response) {
@@ -161,11 +148,12 @@ function handleTopOfTableRequest(intent, session, response) {
     var speechOutput = "";
     //grab the second team
     var secondPoints = leagueTableOrder.standing[1].points;
+    secondPoints = 30;
     var secondTeam = leagueTableOrder.standing[1].teamName;
     if (points === secondPoints) {
       speechOutput = top + " and " + secondTeam + " are tied for the top of the table with " + points + " points each.";
     } else {
-      speechOutput = top + " is top of the table " + (points - secondPoints) + " clear of " + secondTeam;
+      speechOutput = top + " is top of the table, " + (points - secondPoints) + " points clear of " + secondTeam + ".";
     }
     response.tellWithCard(speechOutput, "LaLigaScores", speechOutput);
   });
