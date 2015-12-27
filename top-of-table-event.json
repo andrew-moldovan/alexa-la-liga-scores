@@ -1,6 +1,6 @@
 {
   "session": {
-    "sessionId": "SessionId.7c224907-e100-46c7-8c72-d14a55d8c43a",
+    "sessionId": "SessionId.abbb892b-38cb-4d47-bca3-c83e749d37d0",
     "application": {
       "applicationId": "amzn1.echo-sdk-ams.app.d5436a14-ed4b-49b2-ad4c-f2fc805a1a6e"
     },
@@ -11,16 +11,11 @@
   },
   "request": {
     "type": "IntentRequest",
-    "requestId": "EdwRequestId.4fb7e750-0a9f-4fa1-b6c4-06cb17caec8b",
-    "timestamp": 1451172544898,
+    "requestId": "EdwRequestId.ce8c2b06-c2d5-460f-80e8-3a8033062e14",
+    "timestamp": 1451170948614,
     "intent": {
-      "name": "OneShotLaLigaIntent",
-      "slots": {
-        "Team": {
-          "name": "Team",
-          "value": "Barcelona"
-        }
-      }
+      "name": "TopOfTableIntent",
+      "slots": {}
     }
   }
 }

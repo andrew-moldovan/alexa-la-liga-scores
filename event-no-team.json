@@ -15,12 +15,7 @@
     "timestamp": 1451172544898,
     "intent": {
       "name": "OneShotLaLigaIntent",
-      "slots": {
-        "Team": {
-          "name": "Team",
-          "value": "Barcelona"
-        }
-      }
+      "slots": {}
     }
   }
 }
