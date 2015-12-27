@@ -191,8 +191,31 @@ function handleOneshotLaLigaRequest(intent, session, response) {
       response.tellWithCard(speechOutput, "LaLigaScores", speechOutput)
       return;
     }
-    console.log(data.fixtures[0]);
-    speechOutput = "The team you asked for is: " + team.team;
+    // grab the last fixture which is the latest game
+    var fixture = data.fixtures[0];
+    
+    var date = new Date(fixture.date);
+    date = date.toDateString().substring(4);
+    var homeTeam = false;
+    if (fixture.homeTeamName === team.team) {
+      homeTeam = true;
+    }
+    var result = "";
+    if (homeTeam && fixture.result.goalsHomeTeam > fixture.result.goalsAwayTeam) {
+      result = team.team + " defeated " + fixture.awayTeamName + " by a score of " + fixture.result.goalsHomeTeam + " to " + fixture.result.goalsAwayTeam + ".";
+    } else if (homeTeam && fixture.result.goalsHomeTeam < fixture.result.goalsAwayTeam) {
+      result = team.team + " lost to " + fixture.awayTeamName + " by a score of " + fixture.result.goalsAwayTeam + " to " + fixture.result.goalsHomeTeam + ".";
+    } else if (homeTeam && fixture.result.goalsHomeTeam == fixture.result.goalsAwayTeam) {
+      result = team.team + " tied " + fixture.awayTeamName + " with a score of " + fixture.result.goalsAwayTeam + " to " + fixture.result.goalsHomeTeam + ".";
+    } else if (!homeTeam && fixture.result.goalsHomeTeam > fixture.result.goalsAwayTeam) {
+      result = team.team + " lost to " + fixture.homeTeamName + " by a score of " + fixture.result.goalsHomeTeam + " to " + fixture.result.goalsAwayTeam + ".";
+    } else if (!homeTeam && fixture.result.goalsHomeTeam < fixture.result.goalsAwayTeam) {
+      result = team.team + " defeated " + fixture.homeTeamName + " by a score of " + fixture.result.goalsAwayTeam + " to " + fixture.result.goalsHomeTeam + ".";
+    } else if (!homeTeam && fixture.result.goalsHomeTeam == fixture.result.goalsAwayTeam) {
+      result = team.team + " tied " + fixture.homeTeamName + " with a score of " + fixture.result.goalsAwayTeam + " to " + fixture.result.goalsHomeTeam + ".";
+    }
+    result += " The match was played on " + date + ".";
+    speechOutput = result;
     response.tellWithCard(speechOutput, "LaLigaScores", speechOutput);
   });
 }
@@ -221,9 +244,9 @@ function getTeamFromIntent(intent, assignDefault) {
     var teamName = teamSlot.value;
     // find the right team, but it isn't totally easy, so maybe just do a contains search
     for (var currentTeam in TEAMS) {
-      if (currentTeam.indexOf(teamName) > -1) {
+      if (currentTeam.toLowerCase().indexOf(teamName.toLowerCase()) > -1) {
         return {
-          team: teamName,
+          team: currentTeam,
           id: TEAMS[currentTeam]
         }
       }
