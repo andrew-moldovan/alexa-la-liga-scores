@@ -191,9 +191,20 @@ function handleOneshotLaLigaRequest(intent, session, response) {
       response.tellWithCard(speechOutput, "LaLigaScores", speechOutput)
       return;
     }
-    // grab the last fixture which is the latest game
-    var fixture = data.fixtures[0];
-    
+    // figure out which was the last game played
+    var fixtureId = 0;
+    for (var i = 0; i < data.fixtures.length; i++) {
+      if (data.fixtures[i].result.goalsHomeTeam == null) {
+        if (i == 0) {
+          fixtureId = 0;
+        } else {
+          fixtureId = i-1;
+        }
+        break;
+      }
+    }
+    var fixture = data.fixtures[fixtureId];
+
     var date = new Date(fixture.date);
     date = date.toDateString().substring(4);
     var homeTeam = false;
